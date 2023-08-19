@@ -1,3 +1,4 @@
+import 'package:catalog_app/widgets/category_chip.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,7 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // creating list
+  // creating categories list
   final List<String> filters = const [
     "All",
     "Adidas",
@@ -40,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 16.0),
         child: Column(
           children: [
+            // starting heading and search bar
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -72,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 12,
             ),
+            // category list
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: SizedBox(
@@ -80,33 +83,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     itemCount: filters.length,
                     itemBuilder: (context, index) {
-                      final filter = filters[index];
+                      final String filter = filters[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 6.0),
                         child: GestureDetector(
                           onTap: () {
                             startIndex = index;
-                            setState(() {
-
-                            });
+                            setState(() {});
                           },
-                          child: Chip(
-                            label: Text(filter),
-                            labelStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15),
-                            backgroundColor: startIndex == index
-                                ? const Color.fromRGBO(244, 217, 4, 1.0)
-                                : const Color.fromRGBO(239, 241, 244, 1.0),
-                            labelPadding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                          ),
+                          child: CategoryChip(filter: filter, startIndex: startIndex, index: index,),
                         ),
                       );
                     }),
               ),
             ),
+            // another list view builder
+
           ],
         ),
       ),
