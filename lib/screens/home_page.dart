@@ -1,5 +1,8 @@
+import 'package:catalog_app/global_variables.dart';
 import 'package:catalog_app/widgets/category_chip.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/product_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -91,14 +94,33 @@ class _HomeScreenState extends State<HomeScreen> {
                             startIndex = index;
                             setState(() {});
                           },
-                          child: CategoryChip(filter: filter, startIndex: startIndex, index: index,),
+                          child: CategoryChip(
+                            filter: filter,
+                            startIndex: startIndex,
+                            index: index,
+                          ),
                         ),
                       );
                     }),
               ),
             ),
             // another list view builder
-
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                  itemCount: products.length, itemBuilder: (context, index) {
+                  final product=products[index];
+                 return Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                   child: ProductCard(
+                     title: product['title'].toString(),
+                     price: product['price'] as double,
+                     image: product['imageUrl'].toString(),
+                     index: index,
+                   ),
+                 );
+              }),
+            )
           ],
         ),
       ),
