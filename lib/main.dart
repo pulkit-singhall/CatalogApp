@@ -1,4 +1,6 @@
+import 'package:catalog_app/global_variables.dart';
 import 'package:catalog_app/screens/home_page.dart';
+import 'package:catalog_app/screens/product_details.dart';
 import 'package:flutter/material.dart';
 
 void main(){

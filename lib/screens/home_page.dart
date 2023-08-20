@@ -1,4 +1,5 @@
 import 'package:catalog_app/global_variables.dart';
+import 'package:catalog_app/screens/product_details.dart';
 import 'package:catalog_app/widgets/category_chip.dart';
 import 'package:flutter/material.dart';
 
@@ -107,19 +108,33 @@ class _HomeScreenState extends State<HomeScreen> {
             // another list view builder
             Expanded(
               child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                  itemCount: products.length, itemBuilder: (context, index) {
-                  final product=products[index];
-                 return Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                   child: ProductCard(
-                     title: product['title'].toString(),
-                     price: product['price'] as double,
-                     image: product['imageUrl'].toString(),
-                     index: index,
-                   ),
-                 );
-              }),
+                  scrollDirection: Axis.vertical,
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    final product = products[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ProductDetails(
+                              title: product['title'].toString(),
+                              price: product['price'] as double,
+                              imageUrl: product['imageUrl'].toString(),
+                            );
+                          }));
+                        },
+                        child: ProductCard(
+                          title: product['title'].toString(),
+                          price: product['price'] as double,
+                          image: product['imageUrl'].toString(),
+                          index: index,
+                        ),
+                      ),
+                    );
+                  }),
             )
           ],
         ),
