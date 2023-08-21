@@ -34,7 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         elevation: 3.0,
       ),
-      body: pages[currentPage],
+      body: IndexedStack(
+        index: currentPage,
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPage,
         onTap: (value){
@@ -53,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Cart',
           ),
         ],
-        backgroundColor: const Color.fromRGBO(244, 217, 4, 1.0),
+        backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         fixedColor: Colors.black,
         showUnselectedLabels: false,
