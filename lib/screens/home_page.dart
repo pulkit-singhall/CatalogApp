@@ -2,7 +2,7 @@ import 'package:catalog_app/widgets/cart_page_body.dart';
 import 'package:catalog_app/widgets/home_page_body.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/product_card.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,9 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: currentPage==0 ? AppBar(
         title: const Text(
           "Catalog App",
+          style: TextStyle(
+              fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        elevation: 3.0,
+      ) : AppBar(
+        title: const Text(
+          "Cart",
           style: TextStyle(
               fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
         ),
