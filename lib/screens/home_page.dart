@@ -1,3 +1,4 @@
+import 'package:catalog_app/widgets/cart_page_body.dart';
 import 'package:catalog_app/widgets/home_page_body.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // creating categories list
+  // creating widget list for navigation
+  List<Widget> pages = const [HomePageBody(), CartPageBody()];
+  int currentPage=0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +27,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         elevation: 3.0,
       ),
-      body: const HomePageBody(),
+      body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: currentPage,
+        onTap: (value){
+          currentPage = value;
+          setState(() {
+
+          });
+        },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 40, color: Colors.black,),
+              icon: Icon(Icons.home, size: 35, color: Colors.black,),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart, size: 40, color: Colors.black, ),
+              icon: Icon(Icons.shopping_cart, size: 35, color: Colors.black, ),
             label: 'Cart',
           ),
         ],
