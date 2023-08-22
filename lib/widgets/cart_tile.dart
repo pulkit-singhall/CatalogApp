@@ -19,47 +19,54 @@ class CartTile extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           color: const Color.fromRGBO(242, 243, 227, 1.0),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(25),
         ),
-        child: Row(
-          children: [
-            Image(
-              image: AssetImage(imageUrl),
-              width: 10,
-              height: 10,
-            ),
-            const Spacer(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold),
-                  maxLines: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Image(
+                image: AssetImage(imageUrl),
+                width: 70,
+                height: 70,
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      '\$ $price',
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text('\$ $price',
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                ),
-              ],
-            ),
-            const Spacer(),
-            const Spacer(),
-            const Spacer(),
-            const Icon(
-              Icons.delete,
-              color: Colors.red,
-            ),
-          ],
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: (){},
+                icon: const Icon(Icons.delete, color: Colors.red,),
+              ),
+            ],
+          ),
         ),
       ),
     );
