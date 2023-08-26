@@ -1,5 +1,6 @@
 import 'package:catalog_app/global_variables.dart';
 import 'package:catalog_app/screens/home_page.dart';
+import 'package:catalog_app/screens/practice.dart';
 import 'package:catalog_app/screens/product_details.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: false,
       ),
-      home: const HomeScreen(),
+      home: const Practice(),
     );
   }
 }

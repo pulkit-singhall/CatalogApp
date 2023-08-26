@@ -119,7 +119,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                       },
                       child: ProductCard(
                         title: product['title'].toString(),
-                        price: product['price'] as double,
+                        price: product['price'] as int ,
                         image: product['imageUrl'].toString(),
                         index: index,
                       ),

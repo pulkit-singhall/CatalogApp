@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   // parameters
   final String title;
-  final double price;
+  final int price;
   final String image;
   final int index;
   const ProductCard(
@@ -56,12 +56,12 @@ class ProductCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image(
-                  image: AssetImage(image),
-                  alignment: Alignment.center,
-                  height: 180,
+                Image.network(
+                  image,
                   width: 260,
-                )
+                  height: 180,
+                  alignment: Alignment.center,
+                ),
               ],
             ),
           ],
