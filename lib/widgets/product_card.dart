@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   // parameters
   final String title;
-  final int price;
+  final double price;
   final String image;
   final int index;
+  final double rating;
   const ProductCard(
       {super.key,
       required this.title,
       required this.price,
       required this.image,
-      required this.index});
+      required this.index,
+      required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +44,33 @@ class ProductCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Text(
-              '\$ $price',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontSize: 18,
-              ),
+            Row(
+              children: [
+                Text(
+                  '\$ $price',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Text('$rating',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 18,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    const Icon(Icons.star, color: Colors.black, size: 22,),
+                  ],
+                )
+              ],
             ),
             const SizedBox(
               height: 10,
@@ -56,8 +78,8 @@ class ProductCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.network(
-                  image,
+                Image(
+                  image: AssetImage(image),
                   width: 260,
                   height: 180,
                   alignment: Alignment.center,

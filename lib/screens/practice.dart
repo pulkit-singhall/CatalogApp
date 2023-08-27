@@ -52,17 +52,17 @@ class _PracticeState extends State<Practice> {
             final productData = snapshot.data!;
 
             return Scaffold(
-              body: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: ListView.builder(
-                  itemCount: 30,
-                    itemBuilder: (context, index){
-                    final title = productData["products"][index]["title"];
-                    final price = productData["products"][index]["price"];
-                    final image = productData["products"][index]["thumbnail"];
-                    return ProductCard(title: title, price: price, image: image, index: index);
-                }),
-              ),
+              // body: Padding(
+              //   padding: const EdgeInsets.all(12.0),
+              //   child: ListView.builder(
+              //     itemCount: 30,
+              //       itemBuilder: (context, index){
+              //       final title = productData["products"][index]["title"];
+              //       final price = productData["products"][index]["price"];
+              //       final image = productData["products"][index]["thumbnail"];
+              //       return ProductCard(title: title, price: price, image: image, index: index);
+              //   }),
+              // ),
             );
           }
       ),

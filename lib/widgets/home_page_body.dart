@@ -26,7 +26,6 @@ class _HomePageBodyState extends State<HomePageBody> {
 
     var body = res.body;
     var data = jsonDecode(body);
-    print(data);
 
     return data;
   }
@@ -141,9 +140,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                       },
                       child: ProductCard(
                         title: product['title'].toString(),
-                        price: product['price'] as int,
+                        price: product['price'] as double,
                         image: product['imageUrl'].toString(),
                         index: index,
+                        rating: product['rating'] as double,
                       ),
                     ),
                   );
