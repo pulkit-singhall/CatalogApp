@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:catalog_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../global_variables.dart';
 import '../screens/product_details.dart';
@@ -13,16 +16,26 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
-  final List<String> filters = const [
-    "All",
-    "Adidas",
-    "Puma",
-    "Bata",
-    "Nike",
-    "Rebook"
-  ];
-
+  late Future<List<dynamic>> categories;
   var startIndex = 0;
+
+  // categories
+  Future<List<dynamic>> getCategory() async {
+    String url = "https://dummyjson.com/products/categories";
+    var res = await http.get(Uri.parse(url));
+
+    var body = res.body;
+    var data = jsonDecode(body);
+    print(data);
+
+    return data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    categories = getCategory();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +54,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Text(
-                "Shoes\nCollection",
+                "Categories\nCollection",
                 style: TextStyle(
                     fontSize: 28,
                     color: Colors.black,
@@ -74,26 +87,35 @@ class _HomePageBodyState extends State<HomePageBody> {
             padding: const EdgeInsets.all(12.0),
             child: SizedBox(
               height: 50,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: filters.length,
-                  itemBuilder: (context, index) {
-                    final String filter = filters[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          startIndex = index;
-                          setState(() {});
-                        },
-                        child: CategoryChip(
-                          filter: filter,
-                          startIndex: startIndex,
-                          index: index,
-                        ),
-                      ),
-                    );
-                  }),
+              child: FutureBuilder(
+                  future: categories, builder: (context, snapshot) {
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return const Center(child: RefreshProgressIndicator());
+                    }
+
+                    final categoryData = snapshot.data!;
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categoryData.length,
+                        itemBuilder: (context, index) {
+                          final String filter = categoryData[index].toString();
+                          print(filter);
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                startIndex = index;
+                                setState(() {});
+                              },
+                              child: CategoryChip(
+                                filter: filter,
+                                startIndex: startIndex,
+                                index: index,
+                              ),
+                            ),
+                          );
+                        });
+              }),
             ),
           ),
           // another list view builder
@@ -119,7 +141,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                       },
                       child: ProductCard(
                         title: product['title'].toString(),
-                        price: product['price'] as int ,
+                        price: product['price'] as int,
                         image: product['imageUrl'].toString(),
                         index: index,
                       ),

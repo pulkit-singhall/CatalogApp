@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: false,
       ),
-      home: const Practice(),
+      home: const HomeScreen(),
     );
   }
 }
