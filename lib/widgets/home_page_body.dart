@@ -153,14 +153,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                               horizontal: 12.0, vertical: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return ProductDetails(
-                              //     title: product['title'].toString(),
-                              //     price: product['price'] as double,
-                              //     imageUrl: product['imageUrl'].toString(),
-                              //   );
-                              // }));
+                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return ProductDetails(product: product);
+                              }));
                             },
                             child: ProductCard(
                               title: product['title'].toString(),

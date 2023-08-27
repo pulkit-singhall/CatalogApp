@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: index.isEven
-            ? const Color.fromRGBO(216, 240, 253, 1)
+            ? const Color.fromRGBO(220, 237, 246, 1.0)
             : const Color.fromRGBO(243, 243, 248, 1.0),
       ),
       width: Checkbox.width,
