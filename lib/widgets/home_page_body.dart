@@ -4,7 +4,6 @@ import 'package:catalog_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../global_variables.dart';
 import '../screens/product_details.dart';
 import 'category_chip.dart';
 
@@ -18,10 +17,21 @@ class HomePageBody extends StatefulWidget {
 class _HomePageBodyState extends State<HomePageBody> {
   late Future<List<dynamic>> categories;
   var startIndex = 0;
+  late Future<Map<String, dynamic>> productData;
 
   // categories
-  Future<List<dynamic>> getCategory() async {
+  Future<List<dynamic>> getCategoryData() async {
     String url = "https://dummyjson.com/products/categories";
+    var res = await http.get(Uri.parse(url));
+
+    var body = res.body;
+    var data = jsonDecode(body);
+
+    return data;
+  }
+
+  Future<Map<String, dynamic>> getProductData() async {
+    String url = "https://dummyjson.com/products";
     var res = await http.get(Uri.parse(url));
 
     var body = res.body;
@@ -33,7 +43,8 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   void initState() {
     super.initState();
-    categories = getCategory();
+    categories = getCategoryData();
+    productData = getProductData();
   }
 
   @override
@@ -87,8 +98,9 @@ class _HomePageBodyState extends State<HomePageBody> {
             child: SizedBox(
               height: 50,
               child: FutureBuilder(
-                  future: categories, builder: (context, snapshot) {
-                    if(snapshot.connectionState == ConnectionState.waiting){
+                  future: categories,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: RefreshProgressIndicator());
                     }
 
@@ -98,9 +110,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                         itemCount: categoryData.length,
                         itemBuilder: (context, index) {
                           final String filter = categoryData[index].toString();
-                          print(filter);
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 6.0),
                             child: GestureDetector(
                               onTap: () {
                                 startIndex = index;
@@ -114,39 +126,52 @@ class _HomePageBodyState extends State<HomePageBody> {
                             ),
                           );
                         });
-              }),
+                  }),
             ),
           ),
           // another list view builder
           Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  final product = products[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ProductDetails(
-                            title: product['title'].toString(),
-                            price: product['price'] as double,
-                            imageUrl: product['imageUrl'].toString(),
-                          );
-                        }));
-                      },
-                      child: ProductCard(
-                        title: product['title'].toString(),
-                        price: product['price'] as double,
-                        image: product['imageUrl'].toString(),
-                        index: index,
-                        rating: product['rating'] as double,
-                      ),
-                    ),
-                  );
+            child: FutureBuilder(
+                future: productData,
+                builder: (context, snapshot) {
+
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                      return const Center(child: RefreshProgressIndicator(),);
+                  }
+
+                  final data = snapshot.data!;
+                  final products = data['products'];
+
+                  return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final product = products[index];
+                        final rating = product['rating'].toDouble();
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Navigator.push(context,
+                              //     MaterialPageRoute(builder: (context) {
+                              //   return ProductDetails(
+                              //     title: product['title'].toString(),
+                              //     price: product['price'] as double,
+                              //     imageUrl: product['imageUrl'].toString(),
+                              //   );
+                              // }));
+                            },
+                            child: ProductCard(
+                              title: product['title'].toString(),
+                              price: product['price'] as int,
+                              image: product['thumbnail'].toString(),
+                              index: index,
+                              rating: rating,
+                            ),
+                          ),
+                        );
+                      });
                 }),
           )
         ],

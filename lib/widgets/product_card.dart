@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   // parameters
   final String title;
-  final double price;
+  final int price;
   final String image;
   final int index;
   final double rating;
@@ -57,7 +57,8 @@ class ProductCard extends StatelessWidget {
                 const Spacer(),
                 Row(
                   children: [
-                    Text('$rating',
+                    Text(
+                      '$rating',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -67,7 +68,11 @@ class ProductCard extends StatelessWidget {
                     const SizedBox(
                       width: 2,
                     ),
-                    const Icon(Icons.star, color: Colors.black, size: 22,),
+                    const Icon(
+                      Icons.star,
+                      color: Colors.black,
+                      size: 22,
+                    ),
                   ],
                 )
               ],
@@ -78,8 +83,8 @@ class ProductCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image(
-                  image: AssetImage(image),
+                Image.network(
+                  image,
                   width: 260,
                   height: 180,
                   alignment: Alignment.center,

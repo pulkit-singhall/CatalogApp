@@ -1,6 +1,5 @@
 import 'package:catalog_app/global_variables.dart';
 import 'package:catalog_app/screens/home_page.dart';
-import 'package:catalog_app/screens/practice.dart';
 import 'package:catalog_app/screens/product_details.dart';
 import 'package:catalog_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
