@@ -29,7 +29,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final List<dynamic> images = actualProduct['images'];
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(242, 243, 227, 1.0),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           title,
@@ -52,19 +52,23 @@ class _ProductDetailsState extends State<ProductDetails> {
               )),
         ),
         elevation: 0,
-        backgroundColor: const Color.fromRGBO(242, 243, 227, 1.0),
+        backgroundColor: Colors.white,
         toolbarHeight: 60,
         centerTitle: true,
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
         child: Column(
           children: [
             // images
+            const SizedBox(
+              height: 10,
+            ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               child: SizedBox(
-                height: 400,
-                width: MediaQuery.of(context).size.width,
+                height: 300,
+                width: 358,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: images.length,
@@ -75,38 +79,88 @@ class _ProductDetailsState extends State<ProductDetails> {
                     }),
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             SingleChildScrollView(
-                scrollDirection: Axis.vertical,
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   description,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                      fontSize: 26,
                       fontFamily: 'Lato'),
-                )),
-            const Spacer(),
-            const Spacer(),
-            Row(
-              children: [
-                Text('\$ $price', style: const TextStyle(fontFamily: 'Lato', fontSize: 20,),),
-                const Spacer(),
-                Text(brand, style: const TextStyle(fontFamily: 'Lato', fontSize: 20,)),
-              ],
+                ),
+              ),
             ),
             const Spacer(),
-            ElevatedButton(
-                onPressed: () {
-                  // add to cart mechanism
-                },
-                style: const ButtonStyle(
-                  elevation: MaterialStatePropertyAll(3),
+            // new color design
+            Container(
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(240, 241, 234, 1.0),
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          '\$ $price',
+                          style: const TextStyle(
+                              fontFamily: 'Lato',
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.brown),
+                        ),
+                        const Spacer(),
+                        Text(brand,
+                            style: const TextStyle(
+                                fontFamily: 'Lato',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.brown)),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          // add to cart mechanism
+                        },
+                        style: ButtonStyle(
+                            elevation: const MaterialStatePropertyAll(3),
+                            fixedSize: MaterialStateProperty.all<Size>(
+                                const Size(150, 45)),
+                            shape:
+                                MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(21),
+                            ))),
+                        child: const Text(
+                          'Add To Cart',
+                          style: TextStyle(
+                              color: Colors.brown,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              fontFamily: 'Lato'),
+                        )),
+                    const SizedBox(
+                      height: 35,
+                    )
+                  ],
                 ),
-                child: const Text(
-                  'Add To Cart',
-                  style: TextStyle(color: Colors.black),
-                )),
-            const SizedBox(
-              height: 30,
+              ),
             ),
           ],
         ),

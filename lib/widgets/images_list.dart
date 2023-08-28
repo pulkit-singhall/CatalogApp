@@ -6,16 +6,17 @@ class ImageList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20)
-      ),
-      child: Image.network(imageUrl,
-        alignment: Alignment.center,
-        height: 200,
-        width: 150,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        width: 350,
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(240, 241, 234, 1.0),
+          borderRadius: BorderRadius.circular(30)
+        ),
+        child: Image.network(imageUrl,
+          alignment: Alignment.center,
+        ),
       ),
     );
   }
