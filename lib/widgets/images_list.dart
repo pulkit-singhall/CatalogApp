@@ -7,10 +7,16 @@ class ImageList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
         color: Colors.white,
+        borderRadius: BorderRadius.circular(20)
       ),
-      child: Image.network(imageUrl),
+      child: Image.network(imageUrl,
+        alignment: Alignment.center,
+        height: 200,
+        width: 150,
+      ),
     );
   }
 }
