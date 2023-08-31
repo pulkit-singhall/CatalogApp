@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CartTile extends StatelessWidget {
   final String title;
   final String imageUrl;
-  final double price;
+  final int price;
 
   const CartTile(
       {super.key,

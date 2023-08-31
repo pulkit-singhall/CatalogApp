@@ -37,7 +37,7 @@ final products = [
   },
 ];
 
-final cart = [
+final cartItem = [
   {
     'id': '3',
     'title': 'Jordan Shoes',

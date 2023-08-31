@@ -1,5 +1,7 @@
+import 'package:catalog_app/providers/cart_add.dart';
 import 'package:catalog_app/widgets/images_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   // parameters
@@ -17,6 +19,20 @@ class _ProductDetailsState extends State<ProductDetails> {
   void initState() {
     super.initState();
     actualProduct = widget.product;
+  }
+
+  // add to cart
+  void addToCart(){
+    Provider.of<CartItems>(context, listen: false).addProduct(
+        {
+          'id': actualProduct['id'],
+          'title': actualProduct['title'],
+          'price': actualProduct['price'],
+          "rating": actualProduct['rating'],
+          'imageUrl': actualProduct['thumbnail'],
+          'company': actualProduct['brand'],
+        }
+    );
   }
 
   @override
@@ -137,6 +153,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ElevatedButton(
                         onPressed: () {
                           // add to cart mechanism
+                          addToCart();
+                          print(Provider.of<CartItems>(context, listen: false).cart);
+                          setState(() {
+
+                          });
                         },
                         style: ButtonStyle(
                             elevation: const MaterialStatePropertyAll(3),
