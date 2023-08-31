@@ -154,7 +154,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                         onPressed: () {
                           // add to cart mechanism
                           addToCart();
-                          print(Provider.of<CartItems>(context, listen: false).cart);
                           setState(() {
 
                           });

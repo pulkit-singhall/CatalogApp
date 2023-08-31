@@ -25,10 +25,10 @@ class CartTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Image(
-                image: AssetImage(imageUrl),
-                width: 70,
+              Image.network(
+                imageUrl,
                 height: 70,
+                width: 70,
               ),
               const SizedBox(
                 width: 15,
@@ -62,8 +62,11 @@ class CartTile extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                onPressed: (){},
-                icon: const Icon(Icons.delete, color: Colors.red,),
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
               ),
             ],
           ),
