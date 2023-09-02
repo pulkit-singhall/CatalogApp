@@ -154,16 +154,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                           addToCart();
                           // snack bar
                           const message = SnackBar(
-                              content: Text(
-                            'Added To Cart',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+                            content: Text(
+                              'Added To Cart',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
                             elevation: 3.0,
                             backgroundColor: Colors.brown,
+                            duration: Duration(milliseconds: 1500),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(message);
                         },

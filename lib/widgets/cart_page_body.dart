@@ -29,6 +29,7 @@ class _CartPageBodyState extends State<CartPageBody> {
                 price: cartItem['price'] as int,
                 imageUrl: cartItem['imageUrl'].toString(),
                 title: cartItem['title'].toString(),
+                index: index,
               );
             }
         ),
