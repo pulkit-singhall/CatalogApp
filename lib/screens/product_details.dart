@@ -22,17 +22,15 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   // add to cart
-  void addToCart(){
-    Provider.of<CartItems>(context, listen: false).addProduct(
-        {
-          'id': actualProduct['id'],
-          'title': actualProduct['title'],
-          'price': actualProduct['price'],
-          "rating": actualProduct['rating'],
-          'imageUrl': actualProduct['thumbnail'],
-          'company': actualProduct['brand'],
-        }
-    );
+  void addToCart() {
+    Provider.of<CartItems>(context, listen: false).addProduct({
+      'id': actualProduct['id'],
+      'title': actualProduct['title'],
+      'price': actualProduct['price'],
+      "rating": actualProduct['rating'],
+      'imageUrl': actualProduct['thumbnail'],
+      'company': actualProduct['brand'],
+    });
   }
 
   @override
@@ -154,17 +152,27 @@ class _ProductDetailsState extends State<ProductDetails> {
                         onPressed: () {
                           // add to cart mechanism
                           addToCart();
-                          setState(() {
-
-                          });
+                          // snack bar
+                          const message = SnackBar(
+                              content: Text(
+                            'Added To Cart',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                            elevation: 3.0,
+                            backgroundColor: Colors.brown,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(message);
                         },
                         style: ButtonStyle(
                             elevation: const MaterialStatePropertyAll(3),
                             fixedSize: MaterialStateProperty.all<Size>(
                                 const Size(150, 45)),
-                            shape:
-                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(21),
                             ))),
                         child: const Text(
