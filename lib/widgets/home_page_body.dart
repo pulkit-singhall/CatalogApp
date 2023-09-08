@@ -4,7 +4,7 @@ import 'package:catalog_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../screens/product_details.dart';
+import '../screens/details/product_details.dart';
 import 'category_chip.dart';
 
 class HomePageBody extends StatefulWidget {
