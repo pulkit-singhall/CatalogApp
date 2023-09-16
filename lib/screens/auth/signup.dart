@@ -1,4 +1,5 @@
 import 'package:catalog_app/screens/auth/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -68,6 +69,9 @@ class _SignUp extends State<SignUp> {
           ElevatedButton(
               onPressed: () {
                 // register action
+                if(validateSignUp(email.text.toString(), password.text.toString())){
+                  signUp(email.text.toString(), password.text.toString());
+                }
               },
               style: ButtonStyle(
                 elevation: const MaterialStatePropertyAll(2.0),
@@ -112,8 +116,27 @@ class _SignUp extends State<SignUp> {
     );
   }
 
+  signUp(String email, String password) async {
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('Success');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   bool validateSignUp(String email, String password) {
     if (email.isEmpty || password.isEmpty) {
+      print('Invalid credentials');
       return false;
     }
     return true;
