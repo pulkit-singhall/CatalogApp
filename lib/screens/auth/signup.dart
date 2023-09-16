@@ -13,11 +13,10 @@ class _SignUp extends State<SignUp> {
   TextEditingController password = TextEditingController();
 
   final textBorder = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: Colors.yellow.shade600,
-      width: 2,
-    )
-  );
+      borderSide: BorderSide(
+    color: Colors.yellow.shade600,
+    width: 2,
+  ));
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +68,18 @@ class _SignUp extends State<SignUp> {
           ElevatedButton(
               onPressed: () {
                 // register action
-
               },
               style: ButtonStyle(
                 elevation: const MaterialStatePropertyAll(2.0),
-                minimumSize: MaterialStateProperty.all<Size>(const Size(140, 40)),
+                minimumSize:
+                    MaterialStateProperty.all<Size>(const Size(140, 40)),
               ),
               child: const Text(
                 'SIGN UP',
-                style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
               )),
           const SizedBox(
             height: 8,
@@ -110,8 +112,8 @@ class _SignUp extends State<SignUp> {
     );
   }
 
-  bool validate(String email, String password){
-    if(email.isEmpty || password.isEmpty){
+  bool validateSignUp(String email, String password) {
+    if (email.isEmpty || password.isEmpty) {
       return false;
     }
     return true;
