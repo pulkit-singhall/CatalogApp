@@ -1,5 +1,6 @@
 import 'package:catalog_app/global_variables.dart';
 import 'package:catalog_app/providers/cart_add.dart';
+import 'package:catalog_app/screens/auth/signup.dart';
 import 'package:catalog_app/screens/home/home_page.dart';
 import 'package:catalog_app/screens/details/product_details.dart';
 import 'package:catalog_app/widgets/product_card.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: false,
         ),
-        home: const HomeScreen(),
+        home: const SignUp(),
       ),
     );
   }
