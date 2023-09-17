@@ -1,4 +1,5 @@
 import 'package:catalog_app/screens/auth/login.dart';
+import 'package:catalog_app/screens/home/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class SignUp extends StatefulWidget {
 class _SignUp extends State<SignUp> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  int isHide = 1;
 
   final textBorder = OutlineInputBorder(
       borderSide: BorderSide(
@@ -50,6 +53,13 @@ class _SignUp extends State<SignUp> {
             child: TextField(
               controller: password,
               decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    isHide = 1 - isHide;
+                    setState(() {});
+                  },
+                  icon: const Icon(Icons.remove_red_eye),
+                ),
                 labelText: "Password",
                 labelStyle: const TextStyle(
                   fontSize: 18,
@@ -60,7 +70,7 @@ class _SignUp extends State<SignUp> {
                 disabledBorder: textBorder,
               ),
               maxLines: 1,
-              obscureText: true,
+              obscureText: isHide == 1 ? true : false,
             ),
           ),
           const SizedBox(
@@ -69,8 +79,23 @@ class _SignUp extends State<SignUp> {
           ElevatedButton(
               onPressed: () {
                 // register action
-                if(validateSignUp(email.text.toString(), password.text.toString())){
-                  signUp(email.text.toString(), password.text.toString());
+                if (validateSignUp(
+                    email.text.toString(), password.text.toString())) {
+                  signUp(email.text.toString(), password.text.toString(), context);
+                } else {
+                  SnackBar message = const SnackBar(
+                    content: Text(
+                      'Invalid Credentials',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22),
+                      textAlign: TextAlign.center,
+                    ),
+                    duration: Duration(seconds: 2),
+                    backgroundColor: Color.fromRGBO(244, 217, 4, 1.0),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(message);
                 }
               },
               style: ButtonStyle(
@@ -116,13 +141,27 @@ class _SignUp extends State<SignUp> {
     );
   }
 
-  signUp(String email, String password) async {
+  signUp(String email, String password, BuildContext context) async {
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      print('Success');
+      print('User Registered Successfully');
+      SnackBar message = const SnackBar(
+        content: Text(
+          'User Registered Successfully!',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
+        ),
+        duration: Duration(seconds: 2),
+        backgroundColor: Color.fromRGBO(244, 217, 4, 1.0),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(message);
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return const HomeScreen();
+      }));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -136,7 +175,7 @@ class _SignUp extends State<SignUp> {
 
   bool validateSignUp(String email, String password) {
     if (email.isEmpty || password.isEmpty) {
-      print('Invalid credentials');
+      print('Invalid Credentials');
       return false;
     }
     return true;
