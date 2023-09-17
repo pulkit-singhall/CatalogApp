@@ -85,7 +85,7 @@ class _SignUp extends State<SignUp> {
                 } else {
                   SnackBar message = const SnackBar(
                     content: Text(
-                      'Invalid Credentials',
+                      'Pls fill the Details!',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -153,7 +153,8 @@ class _SignUp extends State<SignUp> {
         content: Text(
           'User Registered Successfully!',
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+          textAlign: TextAlign.center,
         ),
         duration: Duration(seconds: 2),
         backgroundColor: Color.fromRGBO(244, 217, 4, 1.0),
