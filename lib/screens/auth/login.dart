@@ -14,6 +14,8 @@ class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  int isHide = 1;
+
   final textBorder = OutlineInputBorder(
       borderSide: BorderSide(
     color: Colors.yellow.shade600,
@@ -59,9 +61,18 @@ class _LoginState extends State<Login> {
                 border: textBorder,
                 focusedBorder: textBorder,
                 disabledBorder: textBorder,
+                suffixIcon: IconButton(
+                  onPressed: (){
+                    isHide = 1-isHide;
+                    setState(() {
+
+                    });
+                  },
+                  icon: const Icon(Icons.remove_red_eye),
+                )
               ),
               maxLines: 1,
-              obscureText: true,
+              obscureText: isHide==1 ? true : false,
             ),
           ),
           const SizedBox(
