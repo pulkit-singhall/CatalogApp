@@ -1,5 +1,4 @@
 import 'package:catalog_app/screens/auth/login.dart';
-import 'package:catalog_app/screens/home/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +12,9 @@ class SignUp extends StatefulWidget {
 class _SignUp extends State<SignUp> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController mobile = TextEditingController();
+  TextEditingController address = TextEditingController();
 
   int isHide = 1;
 
@@ -28,6 +30,49 @@ class _SignUp extends State<SignUp> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Spacer(),
+          SizedBox(
+            width: 350,
+            child: TextField(
+              controller: name,
+              decoration: InputDecoration(
+                labelText: "Name",
+                labelStyle: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
+                border: textBorder,
+                focusedBorder: textBorder,
+                disabledBorder: textBorder,
+                prefixIcon: const Icon(Icons.person)
+              ),
+              maxLines: 1,
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
+            width: 350,
+            child: TextField(
+              controller: mobile,
+              decoration: InputDecoration(
+                labelText: "Phone No",
+                labelStyle: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
+                border: textBorder,
+                focusedBorder: textBorder,
+                disabledBorder: textBorder,
+                prefixIcon: const Icon(Icons.phone)
+              ),
+              maxLines: 1,
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
           SizedBox(
             width: 350,
             child: TextField(
@@ -41,6 +86,28 @@ class _SignUp extends State<SignUp> {
                 border: textBorder,
                 focusedBorder: textBorder,
                 disabledBorder: textBorder,
+                prefixIcon: const Icon(Icons.email)
+              ),
+              maxLines: 1,
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
+            width: 350,
+            child: TextField(
+              controller: address,
+              decoration: InputDecoration(
+                labelText: "Address",
+                labelStyle: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
+                border: textBorder,
+                focusedBorder: textBorder,
+                disabledBorder: textBorder,
+                prefixIcon: const Icon(Icons.house),
               ),
               maxLines: 1,
             ),
@@ -53,7 +120,7 @@ class _SignUp extends State<SignUp> {
             child: TextField(
               controller: password,
               decoration: InputDecoration(
-                suffixIcon: IconButton(
+                prefixIcon: IconButton(
                   onPressed: () {
                     isHide = 1 - isHide;
                     setState(() {});
@@ -135,7 +202,8 @@ class _SignUp extends State<SignUp> {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   )),
             ],
-          )
+          ),
+          const Spacer(),
         ],
       ),
     );
@@ -148,6 +216,7 @@ class _SignUp extends State<SignUp> {
         email: email,
         password: password,
       );
+
       print('User Registered Successfully');
       SnackBar message = const SnackBar(
         content: Text(
@@ -163,6 +232,9 @@ class _SignUp extends State<SignUp> {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return const Login();
       }));
+
+      // push user module into database
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
