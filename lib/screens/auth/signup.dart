@@ -36,16 +36,15 @@ class _SignUp extends State<SignUp> {
             child: TextField(
               controller: name,
               decoration: InputDecoration(
-                labelText: "Name",
-                labelStyle: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-                border: textBorder,
-                focusedBorder: textBorder,
-                disabledBorder: textBorder,
-                prefixIcon: const Icon(Icons.person)
-              ),
+                  labelText: "Name",
+                  labelStyle: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                  border: textBorder,
+                  focusedBorder: textBorder,
+                  disabledBorder: textBorder,
+                  prefixIcon: const Icon(Icons.person)),
               maxLines: 1,
             ),
           ),
@@ -57,16 +56,15 @@ class _SignUp extends State<SignUp> {
             child: TextField(
               controller: mobile,
               decoration: InputDecoration(
-                labelText: "Phone No",
-                labelStyle: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-                border: textBorder,
-                focusedBorder: textBorder,
-                disabledBorder: textBorder,
-                prefixIcon: const Icon(Icons.phone)
-              ),
+                  labelText: "Phone No",
+                  labelStyle: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                  border: textBorder,
+                  focusedBorder: textBorder,
+                  disabledBorder: textBorder,
+                  prefixIcon: const Icon(Icons.phone)),
               maxLines: 1,
             ),
           ),
@@ -78,16 +76,15 @@ class _SignUp extends State<SignUp> {
             child: TextField(
               controller: email,
               decoration: InputDecoration(
-                labelText: "Email",
-                labelStyle: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-                border: textBorder,
-                focusedBorder: textBorder,
-                disabledBorder: textBorder,
-                prefixIcon: const Icon(Icons.email)
-              ),
+                  labelText: "Email",
+                  labelStyle: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                  border: textBorder,
+                  focusedBorder: textBorder,
+                  disabledBorder: textBorder,
+                  prefixIcon: const Icon(Icons.email)),
               maxLines: 1,
             ),
           ),
@@ -147,8 +144,13 @@ class _SignUp extends State<SignUp> {
               onPressed: () {
                 // register action
                 if (validateSignUp(
-                    email.text.toString(), password.text.toString())) {
-                  signUp(email.text.toString(), password.text.toString(), context);
+                    email.text.toString(),
+                    password.text.toString(),
+                    name.text.toString(),
+                    mobile.text.toString(),
+                    address.text.toString())) {
+                  signUp(
+                      email.text.toString(), password.text.toString(), context);
                 } else {
                   SnackBar message = const SnackBar(
                     content: Text(
@@ -234,7 +236,6 @@ class _SignUp extends State<SignUp> {
       }));
 
       // push user module into database
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -246,8 +247,13 @@ class _SignUp extends State<SignUp> {
     }
   }
 
-  bool validateSignUp(String email, String password) {
-    if (email.isEmpty || password.isEmpty) {
+  bool validateSignUp(String email, String password, String name, String mobile,
+      String address) {
+    if (email.isEmpty ||
+        password.isEmpty ||
+        name.isEmpty ||
+        mobile.isEmpty ||
+        address.isEmpty) {
       print('Invalid Credentials');
       return false;
     }
