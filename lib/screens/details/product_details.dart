@@ -1,4 +1,3 @@
-import 'package:catalog_app/providers/cart_add.dart';
 import 'package:catalog_app/widgets/images_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,16 +21,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   // add to cart
-  void addToCart() {
-    Provider.of<CartItems>(context, listen: false).addProduct({
-      'id': actualProduct['id'],
-      'title': actualProduct['title'],
-      'price': actualProduct['price'],
-      "rating": actualProduct['rating'],
-      'imageUrl': actualProduct['thumbnail'],
-      'company': actualProduct['brand'],
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +141,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ElevatedButton(
                         onPressed: () {
                           // add to cart mechanism
-                          addToCart();
+                          // addToCart();
                           // snack bar
                           const message = SnackBar(
                             content: Text(

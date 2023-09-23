@@ -3,6 +3,8 @@ import 'package:catalog_app/widgets/home_page_body.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../profile/profile.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -28,6 +30,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold),
               ),
               elevation: 3.0,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return const Profile();
+                    }));
+                  },
+                  icon: const Icon(
+                    Icons.person,
+                    color: Colors.black,
+                    size: 35,
+                  ),
+                )
+              ],
             )
           : AppBar(
               title: const Text(
