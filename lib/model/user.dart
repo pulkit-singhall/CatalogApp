@@ -12,7 +12,7 @@ class UserData{
       required this.address});
 }
 
-Map<String,String> userModule(UserData user){
+Map<String,String> userDataToJSON(UserData user){
   return {
     'name' : user.name.toString(),
     'mobile' : user.mobile.toString(),

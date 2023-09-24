@@ -279,8 +279,11 @@ class _SignUp extends State<SignUp> {
 
   Future<void> addUser(UserData newUser) async {
     try{
-      Map<String,String> data = userModule(newUser);
-      await userCollection.add(data);
+      Map<String,String> data = userDataToJSON(newUser);
+      FirebaseAuth auth = FirebaseAuth.instance;
+      final currentUser = auth.currentUser;
+      final String? uid = currentUser?.uid;
+      await userCollection.doc(uid).collection('Details').add(data);
     }
     catch(e){
       print('error in adding user data' + e.toString());
