@@ -41,6 +41,7 @@ class _LoginState extends State<Login> {
                 border: textBorder,
                 focusedBorder: textBorder,
                 disabledBorder: textBorder,
+                prefixIcon: const Icon(Icons.email),
               ),
               maxLines: 1,
             ),
@@ -61,7 +62,7 @@ class _LoginState extends State<Login> {
                 border: textBorder,
                 focusedBorder: textBorder,
                 disabledBorder: textBorder,
-                suffixIcon: IconButton(
+                prefixIcon: IconButton(
                   onPressed: (){
                     isHide = 1-isHide;
                     setState(() {

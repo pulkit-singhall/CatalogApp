@@ -1,17 +1,18 @@
-class User {
+class UserData{
   final String name;
   final String mobile;
   final String email;
   final String address;
 
-  User(
+
+  UserData(
       {required this.name,
       required this.mobile,
       required this.email,
       required this.address});
 }
 
-Map<String,String> userModule(User user){
+Map<String,String> userModule(UserData user){
   return {
     'name' : user.name.toString(),
     'mobile' : user.mobile.toString(),

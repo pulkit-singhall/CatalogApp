@@ -1,4 +1,6 @@
+import 'package:catalog_app/model/user.dart';
 import 'package:catalog_app/screens/auth/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,10 @@ class _SignUp extends State<SignUp> {
   TextEditingController name = TextEditingController();
   TextEditingController mobile = TextEditingController();
   TextEditingController address = TextEditingController();
+
+  // firestore
+  FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
+  CollectionReference userCollection = FirebaseFirestore.instance.collection('Users');
 
   int isHide = 1;
 
@@ -150,7 +156,12 @@ class _SignUp extends State<SignUp> {
                     mobile.text.toString(),
                     address.text.toString())) {
                   signUp(
-                      email.text.toString(), password.text.toString(), context);
+                      email.text.toString(),
+                      password.text.toString(),
+                      context,
+                      name.text.toString(),
+                      mobile.text.toString(),
+                      address.text.toString());
                 } else {
                   SnackBar message = const SnackBar(
                     content: Text(
@@ -211,7 +222,8 @@ class _SignUp extends State<SignUp> {
     );
   }
 
-  signUp(String email, String password, BuildContext context) async {
+  signUp(String email, String password, BuildContext context, String name,
+      String mobile, String address) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -236,6 +248,11 @@ class _SignUp extends State<SignUp> {
       }));
 
       // push user module into database
+      final UserData newUser =
+          UserData(name: name, mobile: mobile, email: email, address: address);
+
+      addUser(newUser);
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -258,5 +275,15 @@ class _SignUp extends State<SignUp> {
       return false;
     }
     return true;
+  }
+
+  Future<void> addUser(UserData newUser) async {
+    try{
+      Map<String,String> data = userModule(newUser);
+      await userCollection.add(data);
+    }
+    catch(e){
+      print('error in adding user data' + e.toString());
+    }
   }
 }
