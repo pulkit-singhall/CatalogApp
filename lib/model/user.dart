@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class UserData{
   final String name;
   final String mobile;
@@ -21,3 +24,21 @@ Map<String,String> userDataToJSON(UserData user){
   };
 }
 
+Future<Map<String,String>> retrieveUserData() async {
+  // firebase auth
+  FirebaseAuth auth = FirebaseAuth.instance;
+  final currentUser = auth.currentUser;
+  final String? uid = currentUser?.uid;
+  // firestore
+  FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
+  CollectionReference userCollection = firestoreInstance.collection('Users');
+
+  try{
+    final res = await userCollection.doc(uid).collection('Details').get();
+    return res as Future<Map<String,String>>;
+  }
+  catch(e){
+    print('Error in retrieving data $e');
+  }
+  return {};
+}
