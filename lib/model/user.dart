@@ -15,7 +15,7 @@ class UserData{
       required this.address});
 }
 
-Map<String,String> userDataToJSON(UserData user){
+Map<String,dynamic> userDataToJSON(UserData user){
   return {
     'name' : user.name.toString(),
     'mobile' : user.mobile.toString(),
@@ -26,7 +26,7 @@ Map<String,String> userDataToJSON(UserData user){
 
 Future<void> addUser(UserData newUser) async {
   try{
-    Map<String,String> data = userDataToJSON(newUser);
+    Map<String,dynamic> data = userDataToJSON(newUser);
 
     FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
     CollectionReference userCollection = firestoreInstance.collection('User_Details');
@@ -37,7 +37,7 @@ Future<void> addUser(UserData newUser) async {
     await userCollection.doc(uid).set(data);
   }
   catch(e){
-    print('error in adding user data' + e.toString());
+    print('error in adding user data$e');
   }
 }
 
@@ -60,4 +60,17 @@ Future<Map<String, dynamic>> retrieveUserData() async {
 
   return profileData;
 
+}
+
+Future<void> updateUserAddress(UserData user) async {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  final currentUser = auth.currentUser;
+  final String? uid = currentUser?.uid;
+  // firestore
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final userCollection = firestore.collection('User_Details');
+
+  final newData = userDataToJSON(user);
+
+  userCollection.doc(uid).update(newData);
 }
