@@ -12,7 +12,7 @@ class _ProfileState extends State<Profile> {
   TextEditingController address = TextEditingController();
 
   // data of user
-  late Future<Map<String,String>> user;
+  late Future<Map<String,dynamic>> user;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
       ),
       body: FutureBuilder(
         future: user!,
-        builder: (BuildContext context, AsyncSnapshot<Map<String,String>> snapshot){
+        builder: (BuildContext context, AsyncSnapshot<Map<String,dynamic>> snapshot){
 
           if(snapshot.hasError){
             return Center(

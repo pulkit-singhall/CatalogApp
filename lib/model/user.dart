@@ -41,21 +41,23 @@ Future<void> addUser(UserData newUser) async {
   }
 }
 
-Future<Map<String,String>> retrieveUserData() async {
+Future<Map<String, dynamic>> retrieveUserData() async {
   // firebase auth
   FirebaseAuth auth = FirebaseAuth.instance;
   final currentUser = auth.currentUser;
   final String? uid = currentUser?.uid;
   // firestore
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final userCollection = firestore.collection('Users');
+  final userCollection = firestore.collection('User_Details');
 
-  try{
-    final collection = await userCollection.doc(uid).collection('Details');
+  final docRef = userCollection.doc(uid);
+  final profileData = docRef.get().then(
+        (DocumentSnapshot doc) {
+      final data = doc.data() as Map<String,dynamic>;
+      return data;
+    }
+  );
 
-  }
-  catch(e){
-    print('error in retrieving user data $e');
-  }
-  return {};
+  return profileData;
+
 }
