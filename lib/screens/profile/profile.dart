@@ -34,7 +34,7 @@ class _ProfileState extends State<Profile> {
         ),
       ),
       body: FutureBuilder(
-        future: user,
+        future: user!,
         builder: (BuildContext context, AsyncSnapshot<Map<String,String>> snapshot){
 
           if(snapshot.hasError){
@@ -49,102 +49,105 @@ class _ProfileState extends State<Profile> {
             );
           }
 
-          final dataUser = snapshot.data;
-          print(dataUser);
-
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 70,
-                ),
-                const Icon(
-                  Icons.person,
-                  size: 150,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  dataUser!['name']!,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  dataUser['mobile']!,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  dataUser['email']!,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  dataUser['address']!,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  width: 300,
-                  child: TextField(
-                    maxLines: 1,
-                    controller: address,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      labelText: 'Update Address',
-                      border: OutlineInputBorder(),
-                      disabledBorder: OutlineInputBorder(),
-                    ),
+          if(snapshot.hasData){
+            final dataUser = snapshot.data;
+            // print(dataUser);
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 70,
                   ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // update of address
-
-                  },
-                  style: ButtonStyle(
-                      elevation: MaterialStateProperty.all(3.0),
-                      minimumSize:
-                      MaterialStateProperty.all<Size>(const Size(120, 40))),
-                  child: const Text(
-                    'UPDATE',
-                    style: TextStyle(
+                  const Icon(
+                    Icons.person,
+                    size: 150,
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    dataUser!['name']!,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 26),
                   ),
-                ),
-                const Spacer(),
-              ],
-            ),
-          );
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    dataUser['mobile']!,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    dataUser['email']!,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    dataUser['address']!,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 300,
+                    child: TextField(
+                      maxLines: 1,
+                      controller: address,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        labelText: 'Update Address',
+                        border: OutlineInputBorder(),
+                        disabledBorder: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // update of address
+
+                    },
+                    style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(3.0),
+                        minimumSize:
+                        MaterialStateProperty.all<Size>(const Size(120, 40))),
+                    child: const Text(
+                      'UPDATE',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            );
+          }
+
+          return const Center();
         },
       ),
     );

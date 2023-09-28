@@ -20,7 +20,7 @@ class _SignUp extends State<SignUp> {
 
   // firestore
   FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
-  CollectionReference userCollection = FirebaseFirestore.instance.collection('Users');
+  CollectionReference userCollection = FirebaseFirestore.instance.collection('User_Details');
 
   int isHide = 1;
 
@@ -277,16 +277,5 @@ class _SignUp extends State<SignUp> {
     return true;
   }
 
-  Future<void> addUser(UserData newUser) async {
-    try{
-      Map<String,String> data = userDataToJSON(newUser);
-      FirebaseAuth auth = FirebaseAuth.instance;
-      final currentUser = auth.currentUser;
-      final String? uid = currentUser?.uid;
-      await userCollection.doc(uid).collection('Details').add(data);
-    }
-    catch(e){
-      print('error in adding user data' + e.toString());
-    }
-  }
+
 }

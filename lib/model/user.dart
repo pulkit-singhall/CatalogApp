@@ -24,21 +24,38 @@ Map<String,String> userDataToJSON(UserData user){
   };
 }
 
+Future<void> addUser(UserData newUser) async {
+  try{
+    Map<String,String> data = userDataToJSON(newUser);
+
+    FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
+    CollectionReference userCollection = firestoreInstance.collection('User_Details');
+
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final currentUser = auth.currentUser;
+    final String? uid = currentUser?.uid;
+    await userCollection.doc(uid).set(data);
+  }
+  catch(e){
+    print('error in adding user data' + e.toString());
+  }
+}
+
 Future<Map<String,String>> retrieveUserData() async {
   // firebase auth
   FirebaseAuth auth = FirebaseAuth.instance;
   final currentUser = auth.currentUser;
   final String? uid = currentUser?.uid;
   // firestore
-  FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
-  CollectionReference userCollection = firestoreInstance.collection('Users');
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final userCollection = firestore.collection('Users');
 
   try{
-    final res = await userCollection.doc(uid).collection('Details').get();
-    return res as Future<Map<String,String>>;
+    final collection = await userCollection.doc(uid).collection('Details');
+
   }
   catch(e){
-    print('Error in retrieving data $e');
+    print('error in retrieving user data $e');
   }
   return {};
 }
