@@ -4,14 +4,12 @@ class CartTile extends StatefulWidget {
   final String title;
   final String imageUrl;
   final int price;
-  final int index;
 
   const CartTile(
       {super.key,
       required this.price,
       required this.imageUrl,
-      required this.title,
-      required this.index});
+      required this.title,});
 
   @override
   State<CartTile> createState() => _CartTileState();
@@ -36,8 +34,7 @@ class _CartTileState extends State<CartTile> {
                   child: const Text('NO')),
               TextButton(
                   onPressed: () {
-                    // Provider.of<CartItems>(context).removeProduct(product);
-                    // try
+
                   },
                   child: const Text('YES')),
             ],
@@ -53,9 +50,7 @@ class _CartTileState extends State<CartTile> {
       child: Container(
         height: 120,
         decoration: BoxDecoration(
-          color: widget.index.isEven
-              ? const Color.fromRGBO(220, 237, 246, 1.0)
-              : const Color.fromRGBO(243, 243, 248, 1.0),
+          color: const Color.fromRGBO(220, 237, 246, 1.0),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
