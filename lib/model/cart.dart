@@ -57,4 +57,30 @@ Future<void> deleteFromCart(CartData cartItem) async {
     }
 }
 
+Future<List<Map<String,dynamic>>> getCartItems() async {
 
+  List<Map<String,dynamic>> data=[];
+
+  try{
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference cartCollection = firestore.collection('Cart_Details');
+
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final currentUser = auth.currentUser;
+    final String? uid = currentUser?.uid;
+
+    CollectionReference itemCollection = cartCollection.doc(uid).collection('Cart_items');
+
+    itemCollection.get().then((value) {
+      for(var docSnapshot in value.docs){
+        final cartDoc = docSnapshot.data() as Map<String,dynamic>;
+        data.add(cartDoc);
+      }
+    });
+  }
+  catch(e){
+    print('error in retrieving from cart $e');
+  }
+
+  return data;
+}

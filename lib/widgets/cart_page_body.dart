@@ -18,16 +18,7 @@ class _CartPageBodyState extends State<CartPageBody> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-        child: ListView.builder(
-          itemCount: 0, // ref to zero
-            itemBuilder: (context, index) {
-              return null;
-            }
-        ),
-      ),
+    return const Scaffold(
 
     );
   }
