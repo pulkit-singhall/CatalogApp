@@ -1,3 +1,4 @@
+import 'package:catalog_app/model/cart.dart';
 import 'package:catalog_app/widgets/images_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +20,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     super.initState();
     actualProduct = widget.product;
   }
-
-  // add to cart
-
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +138,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          // add to cart mechanism
-                          // addToCart();
-                          // snack bar
+                          // add to cart function
+                          CartData res = productToCartData(actualProduct);
+                          addToCart(res);
+
                           const message = SnackBar(
                             content: Text(
                               'Added To Cart',
@@ -186,4 +185,13 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
     );
   }
+}
+
+CartData productToCartData(Map<String, dynamic> product) {
+  CartData result = CartData(
+      id: product['id'].toString(),
+      title: product['title'],
+      imageUrl: product['thumbnail'],
+      price: product['price']);
+  return result;
 }
