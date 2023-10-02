@@ -2,14 +2,14 @@ import 'package:catalog_app/model/cart.dart';
 import 'package:catalog_app/widgets/cart_tile.dart';
 import 'package:flutter/material.dart';
 
-class CartPageBody extends StatefulWidget {
-  const CartPageBody({super.key});
+class Cart extends StatefulWidget {
+  const Cart({super.key});
 
   @override
-  State<CartPageBody> createState() => _CartPageBodyState();
+  State<Cart> createState() => _CartPageBodyState();
 }
 
-class _CartPageBodyState extends State<CartPageBody> {
+class _CartPageBodyState extends State<Cart> {
   late Future<List<Map<String, dynamic>>> cartItems;
 
   @override
@@ -21,6 +21,14 @@ class _CartPageBodyState extends State<CartPageBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Cart",
+          style: TextStyle(
+              fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        elevation: 3.0,
+      ),
       body: FutureBuilder(
         future: cartItems,
         builder: (BuildContext context,

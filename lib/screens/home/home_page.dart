@@ -1,9 +1,7 @@
-import 'package:catalog_app/screens/cart/cart_page_body.dart';
+import 'package:catalog_app/screens/cart/cart.dart';
+import 'package:catalog_app/screens/profile/profile.dart';
 import 'package:catalog_app/widgets/home_page_body.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../profile/profile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,162 +49,168 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 70,
                 ),
-                Column(
-                  children: [
-                    GestureDetector(
-                      child: const Row(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/order.png'),
-                            height: 30,
-                            width: 30,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'ORDERS',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'lato',
-                            ),
-                          ),
-                        ],
+                GestureDetector(
+                  child: const Row(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/order.png'),
+                        height: 30,
+                        width: 30,
                       ),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      child: const Row(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/cart.png'),
-                            height: 30,
-                            width: 30,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'CART',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'lato',
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: 15,
                       ),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      child: const Row(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/profile.png'),
-                            height: 30,
-                            width: 30,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'PROFILE',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'lato',
-                            ),
-                          ),
-                        ],
+                      Text(
+                        'ORDERS',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'lato',
+                        ),
                       ),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      child: const Row(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/coupon.png'),
-                            height: 30,
-                            width: 30,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'COUPONS',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'lato',
-                            ),
-                          ),
-                        ],
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  child: const Row(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/cart.png'),
+                        height: 30,
+                        width: 30,
                       ),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 100,
-                    ),
-                    GestureDetector(
-                      child: const Row(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/feedback.png'),
-                            height: 30,
-                            width: 30,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'FEEDBACK',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'lato',
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: 15,
                       ),
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      child: const Row(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/images/contact.png'),
-                            height: 30,
-                            width: 30,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'CONTACT',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'lato',
-                            ),
-                          ),
-                        ],
+                      Text(
+                        'CART',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'lato',
+                        ),
                       ),
-                      onTap: () {},
-                    ),
-                  ],
+                    ],
+                  ),
+                  onTap: () {
+                    // cart Navigation
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return const Cart();
+                    }));
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  child: const Row(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/profile.png'),
+                        height: 30,
+                        width: 30,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'PROFILE',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'lato',
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    // profile navigation
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return const Profile();
+                    }));
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  child: const Row(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/coupon.png'),
+                        height: 30,
+                        width: 30,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'COUPONS',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'lato',
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                GestureDetector(
+                  child: const Row(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/feedback.png'),
+                        height: 30,
+                        width: 30,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'FEEDBACK',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'lato',
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  child: const Row(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/contact.png'),
+                        height: 30,
+                        width: 30,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        'CONTACT',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'lato',
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () {},
                 ),
               ],
             ),
