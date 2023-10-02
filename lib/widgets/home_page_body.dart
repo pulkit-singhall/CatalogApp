@@ -100,6 +100,12 @@ class _HomePageBodyState extends State<HomePageBody> {
               child: FutureBuilder(
                   future: categories,
                   builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    }
+
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: RefreshProgressIndicator());
                     }
@@ -134,9 +140,16 @@ class _HomePageBodyState extends State<HomePageBody> {
             child: FutureBuilder(
                 future: productData,
                 builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(snapshot.error.toString()),
+                    );
+                  }
 
-                  if(snapshot.connectionState == ConnectionState.waiting){
-                      return const Center(child: RefreshProgressIndicator(),);
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: RefreshProgressIndicator(),
+                    );
                   }
 
                   final data = snapshot.data!;
@@ -153,7 +166,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                               horizontal: 12.0, vertical: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
                                 return ProductDetails(product: product);
                               }));
                             },

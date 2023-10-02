@@ -71,13 +71,14 @@ Future<List<Map<String, dynamic>>> getCartItems() async {
     final String? uid = currentUser?.uid;
 
     CollectionReference itemCollection =
-        cartCollection.doc(uid).collection('Cart_items');
+        cartCollection.doc(uid).collection('Cart_Items');
 
     itemCollection.get().then((value) {
       for (var docSnapshot in value.docs) {
         final cartDoc = docSnapshot.data() as Map<String, dynamic>;
         data.add(cartDoc);
       }
+      return data;
     });
   } catch (e) {
     print('error in retrieving from cart $e');
