@@ -133,6 +133,7 @@ class _ProfileState extends State<Profile> {
                         address: address.text.toString());
                     updateUserAddress(updatedUser);
                     user = retrieveUserData();
+                    address.clear();
                     setState(() {});
                   },
                   style: ButtonStyle(

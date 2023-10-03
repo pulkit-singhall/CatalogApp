@@ -1,3 +1,4 @@
+import 'package:catalog_app/global_variables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -57,32 +58,4 @@ Future<void> deleteFromCart(CartData cartItem) async {
   } catch (e) {
     print('error in deleting from cart $e');
   }
-}
-
-Future<List<Map<String, dynamic>>> getCartItems() async {
-  List<Map<String, dynamic>> data = [];
-
-  try {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference cartCollection = firestore.collection('Cart_Details');
-
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final currentUser = auth.currentUser;
-    final String? uid = currentUser?.uid;
-
-    CollectionReference itemCollection =
-        cartCollection.doc(uid).collection('Cart_Items');
-
-    itemCollection.get().then((value) {
-      for (var docSnapshot in value.docs) {
-        final cartDoc = docSnapshot.data() as Map<String, dynamic>;
-        data.add(cartDoc);
-      }
-      return data;
-    });
-  } catch (e) {
-    print('error in retrieving from cart $e');
-  }
-
-  return data;
 }

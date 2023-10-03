@@ -1,5 +1,6 @@
-import 'package:catalog_app/model/cart.dart';
 import 'package:catalog_app/widgets/cart_tile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatefulWidget {
@@ -10,12 +11,12 @@ class Cart extends StatefulWidget {
 }
 
 class _CartPageBodyState extends State<Cart> {
-  late Future<List<Map<String, dynamic>>> cartItems;
+  List<Map<String, dynamic>> cartItems = [];
 
   @override
   void initState() {
     super.initState();
-    cartItems = getCartItems();
+    getCartItems();
   }
 
   @override
@@ -29,35 +30,46 @@ class _CartPageBodyState extends State<Cart> {
         ),
         elevation: 3.0,
       ),
-      body: FutureBuilder(
-        future: cartItems,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
+      body: ListView.builder(
+          itemCount: cartItems.length,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (BuildContext context, int index) {
+            final cartItem = cartItems[index];
+            return CartTile(
+              price: cartItem['price'],
+              imageUrl: cartItem['imageUrl'],
+              title: cartItem['title'],
             );
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: RefreshProgressIndicator(),
-            );
-          }
-
-          final cartItemList = snapshot.data!;
-          return ListView.builder(
-              itemCount: cartItemList.length,
-              itemBuilder: (BuildContext context, int index) {
-                final cartItem = cartItemList[index];
-                return CartTile(
-                  price: cartItem['price'],
-                  imageUrl: cartItem['imageUrl'],
-                  title: cartItem['title'],
-                );
-              });
-        },
-      ),
+          }),
     );
+  }
+
+  Future<void> getCartItems() async {
+    List<Map<String, dynamic>> data = [];
+
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      CollectionReference cartCollection = firestore.collection('Cart_Details');
+
+      FirebaseAuth auth = FirebaseAuth.instance;
+      final currentUser = auth.currentUser;
+      final String? uid = currentUser?.uid;
+
+      CollectionReference itemCollection =
+          cartCollection.doc(uid).collection('Cart_Items');
+
+      await itemCollection.get().then((value) {
+        for (var docSnapshot in value.docs) {
+          final cartDoc = docSnapshot.data() as Map<String, dynamic>;
+          data.add(cartDoc);
+        }
+
+        setState(() {
+          cartItems = data;
+        });
+      });
+    } catch (e) {
+      print('error in retrieving from cart $e');
+    }
   }
 }

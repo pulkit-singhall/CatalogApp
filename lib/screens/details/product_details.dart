@@ -1,4 +1,4 @@
-import 'package:catalog_app/model/cart.dart';
+import 'package:catalog_app/model/cartModel.dart';
 import 'package:catalog_app/widgets/images_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
