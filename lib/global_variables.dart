@@ -39,10 +39,10 @@ final products = [
 
 final cartItem = [
   {
-    'id': '3',
+    'id': '1',
     'title': 'Jordan Shoes',
     'price': 420.69,
-    'imageUrl': 'assets/images/shoes_4.png',
+    'imageUrl': 'assets/images/cart.png',
     'company': 'Nike',
     'sizes': 8,
   },
@@ -50,7 +50,7 @@ final cartItem = [
     'id': '2',
     'title': 'Bata Women\'s Shoes',
     'price': 28.95,
-    'imageUrl': 'assets/images/shoes_3.png',
+    'imageUrl': 'assets/images/contact.png',
     'company': 'Bata',
     'sizes': [8, 9, 10],
   },
@@ -58,7 +58,7 @@ final cartItem = [
     'id': '3',
     'title': 'Jordan Shoes',
     'price': 420.69,
-    'imageUrl': 'assets/images/shoes_4.png',
+    'imageUrl': 'assets/images/coupon.png',
     'company': 'Nike',
     'sizes': 8,
   }

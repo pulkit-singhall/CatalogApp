@@ -30,17 +30,20 @@ class _CartPageBodyState extends State<Cart> {
         ),
         elevation: 3.0,
       ),
-      body: ListView.builder(
-          itemCount: cartItems.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (BuildContext context, int index) {
-            final cartItem = cartItems[index];
-            return CartTile(
-              price: cartItem['price'],
-              imageUrl: cartItem['imageUrl'],
-              title: cartItem['title'],
-            );
-          }),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 6.0),
+        child: ListView.builder(
+            itemCount: cartItems.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              final cartItem = cartItems[index];
+              return CartTile(
+                price: cartItem['price'],
+                imageUrl: cartItem['imageUrl'],
+                title: cartItem['title'],
+              );
+            }),
+      ),
     );
   }
 

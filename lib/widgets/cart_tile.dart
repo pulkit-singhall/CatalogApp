@@ -5,18 +5,18 @@ class CartTile extends StatefulWidget {
   final String imageUrl;
   final int price;
 
-  const CartTile(
-      {super.key,
-      required this.price,
-      required this.imageUrl,
-      required this.title,});
+  const CartTile({
+    super.key,
+    required this.price,
+    required this.imageUrl,
+    required this.title,
+  });
 
   @override
   State<CartTile> createState() => _CartTileState();
 }
 
 class _CartTileState extends State<CartTile> {
-
   // deletion of product from cart
   Future<dynamic> deleteDialog() async {
     return showDialog(
@@ -24,92 +24,112 @@ class _CartTileState extends State<CartTile> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Delete Item'),
-            content: const Text(
-                'Are you sure you want to delete this item?'),
+            content: const Text('Are you sure you want to delete this item?'),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   child: const Text('NO')),
-              TextButton(
-                  onPressed: () {
-
-                  },
-                  child: const Text('YES')),
+              TextButton(onPressed: () {}, child: const Text('YES')),
             ],
           );
-        }
-    );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
       child: Container(
-        height: 120,
+        height: 230,
+        width: Checkbox.width,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(220, 237, 246, 1.0),
-          borderRadius: BorderRadius.circular(20),
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: const Border(
+              right: BorderSide(
+                width: 0.3,
+                color: Colors.black,
+                style: BorderStyle.solid,
+              ),
+              left: BorderSide(
+                width: 0.3,
+                color: Colors.black,
+                style: BorderStyle.solid,
+              ),
+              top: BorderSide(
+                width: 0.3,
+                color: Colors.black,
+                style: BorderStyle.solid,
+              ),
+              bottom: BorderSide(
+                width: 0.3,
+                color: Colors.black,
+                style: BorderStyle.solid,
+              ),
+            )),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-          child: Row(
+          child: Column(
             children: [
-              Image.network(
-                widget.imageUrl,
-                height: 80,
-                width: 80,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.network(
+                    widget.imageUrl,
+                    height: 150,
+                    width: 100,
+                  ),
+                  const SizedBox(
+                    width: 22,
+                  ),
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 2.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            widget.title,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Lato'),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            '\$ ${widget.price}',
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Lato'),
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
-                width: 15,
+                height: 30,
               ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 2.0, horizontal: 2.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.title,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '\$ ${widget.price}',
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {
-                  // dialog and delete
-                  deleteDialog();
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                  size: 32,
-                  shadows: [
-                    Shadow(color: Colors.white, offset: Offset.infinite), // try
-                  ],
-                ),
+              const Row(
+                children: [
+                  Icon(Icons.remove_shopping_cart_sharp),
+                  Text('REMOVE'),
+                ],
               ),
             ],
           ),

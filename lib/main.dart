@@ -1,11 +1,7 @@
-import 'package:catalog_app/global_variables.dart';
-import 'package:catalog_app/screens/auth/signup.dart';
-import 'package:catalog_app/screens/home/home_page.dart';
-import 'package:catalog_app/screens/details/product_details.dart';
-import 'package:catalog_app/widgets/product_card.dart';
+import 'package:catalog_app/screens/cart/cart.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: false,
       ),
-      home: const SignUp(),
+      home: const Cart(),
     );
   }
 }
