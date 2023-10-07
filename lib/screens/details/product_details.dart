@@ -192,6 +192,7 @@ CartData productToCartData(Map<String, dynamic> product) {
       id: product['id'].toString(),
       title: product['title'],
       imageUrl: product['thumbnail'],
-      price: product['price']);
+      price: product['price'],
+      brand: product['brand']);
   return result;
 }

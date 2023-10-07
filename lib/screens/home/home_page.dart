@@ -1,5 +1,6 @@
 import 'package:catalog_app/screens/cart/cart.dart';
 import 'package:catalog_app/screens/profile/profile.dart';
+import 'package:catalog_app/widgets/drawer_text.dart';
 import 'package:catalog_app/widgets/home_page_body.dart';
 import 'package:flutter/material.dart';
 
@@ -50,25 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 70,
                 ),
                 GestureDetector(
-                  child: const Row(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/images/order.png'),
-                        height: 30,
-                        width: 30,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'ORDERS',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'lato',
-                        ),
-                      ),
-                    ],
+                  child: const DrawerText(
+                    heading: 'ORDERS',
+                    image: 'assets/images/order.png',
                   ),
                   onTap: () {},
                 ),
@@ -76,29 +61,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 GestureDetector(
-                  child: const Row(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/images/cart.png'),
-                        height: 30,
-                        width: 30,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'CART',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'lato',
-                        ),
-                      ),
-                    ],
+                  child: const DrawerText(
+                    heading: 'CART',
+                    image: 'assets/images/cart.png',
                   ),
                   onTap: () {
                     // cart Navigation
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return const Cart();
                     }));
                   },
@@ -107,29 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 GestureDetector(
-                  child: const Row(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/images/profile.png'),
-                        height: 30,
-                        width: 30,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'PROFILE',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'lato',
-                        ),
-                      ),
-                    ],
+                  child: const DrawerText(
+                    heading: 'PROFILE',
+                    image: 'assets/images/profile.png',
                   ),
                   onTap: () {
                     // profile navigation
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return const Profile();
                     }));
                   },
@@ -138,25 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 GestureDetector(
-                  child: const Row(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/images/coupon.png'),
-                        height: 30,
-                        width: 30,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'COUPONS',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'lato',
-                        ),
-                      ),
-                    ],
+                  child: const DrawerText(
+                    heading: 'COUPONS',
+                    image: 'assets/images/coupon.png',
                   ),
                   onTap: () {},
                 ),
@@ -164,25 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 100,
                 ),
                 GestureDetector(
-                  child: const Row(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/images/feedback.png'),
-                        height: 30,
-                        width: 30,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'FEEDBACK',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'lato',
-                        ),
-                      ),
-                    ],
+                  child: const DrawerText(
+                    heading: 'FEEDBACK',
+                    image: 'assets/images/feedback.png',
                   ),
                   onTap: () {},
                 ),
@@ -190,25 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 GestureDetector(
-                  child: const Row(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/images/contact.png'),
-                        height: 30,
-                        width: 30,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'CONTACT',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'lato',
-                        ),
-                      ),
-                    ],
+                  child: const DrawerText(
+                    heading: 'CONTACT',
+                    image: 'assets/images/contact.png',
                   ),
                   onTap: () {},
                 ),

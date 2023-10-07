@@ -7,12 +7,14 @@ class CartData {
   final String title;
   final String imageUrl;
   final int price;
+  final String brand;
 
   CartData(
       {required this.id,
       required this.title,
       required this.imageUrl,
-      required this.price});
+      required this.price,
+      required this.brand});
 }
 
 Map<String, dynamic> cartDataToJson(CartData cartItem) {
@@ -20,7 +22,8 @@ Map<String, dynamic> cartDataToJson(CartData cartItem) {
     'id': cartItem.id,
     'price': cartItem.price,
     'imageUrl': cartItem.imageUrl,
-    'title': cartItem.title
+    'title': cartItem.title,
+    'brand': cartItem.brand
   };
 }
 

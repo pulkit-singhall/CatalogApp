@@ -41,6 +41,7 @@ class _CartPageBodyState extends State<Cart> {
                 price: cartItem['price'],
                 imageUrl: cartItem['imageUrl'],
                 title: cartItem['title'],
+                brand: cartItem['brand'],
               );
             }),
       ),

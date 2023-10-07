@@ -4,13 +4,14 @@ class CartTile extends StatefulWidget {
   final String title;
   final String imageUrl;
   final int price;
+  final String brand;
 
-  const CartTile({
-    super.key,
-    required this.price,
-    required this.imageUrl,
-    required this.title,
-  });
+  const CartTile(
+      {super.key,
+      required this.price,
+      required this.imageUrl,
+      required this.title,
+      required this.brand});
 
   @override
   State<CartTile> createState() => _CartTileState();
@@ -116,6 +117,18 @@ class _CartTileState extends State<CartTile> {
                                 fontFamily: 'Lato'),
                             maxLines: 1,
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            widget.brand,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Lato'),
+                            maxLines: 1,
+                          ),
                         ],
                       ),
                     ),
@@ -123,12 +136,25 @@ class _CartTileState extends State<CartTile> {
                 ],
               ),
               const SizedBox(
-                height: 30,
+                height: 25,
               ),
               const Row(
                 children: [
-                  Icon(Icons.remove_shopping_cart_sharp),
-                  Text('REMOVE'),
+                  Icon(
+                    Icons.remove_shopping_cart_sharp,
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'REMOVE',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ],
