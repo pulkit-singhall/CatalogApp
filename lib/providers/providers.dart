@@ -1,3 +1,4 @@
+import 'package:catalog_app/screens/auth/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,30 +7,40 @@ import '../model/user.dart';
 import '../screens/auth/login.dart';
 import '../screens/home/home_page.dart';
 
+final userInstanceProvider = Provider((ref) {
+  final userAuth = ref.watch(userAuthProvider.notifier);
+  return userAuth.getUserAuth();
+});
+
 final userAuthProvider = StateNotifierProvider<UserAuthProvider, bool>((ref) {
   return UserAuthProvider();
 });
 
-class UserAuthProvider extends StateNotifier<bool>{
+class UserAuthProvider extends StateNotifier<bool> {
   UserAuthProvider() : super(true);
 
   // bool = true (user logged in)
   // false (user signed out)
 
-  void signOutUser() async {
-    try{
+  void signOutUser({required BuildContext context}) async {
+    try {
       FirebaseAuth auth = FirebaseAuth.instance;
       await auth.signOut();
       print('Logout Success');
       state = false;
-    }
-    catch(e){
+      Navigator.push(context, MaterialPageRoute(builder: (context){
+        return const SignUp();
+      }));
+    } catch (e) {
       state = true;
       print('Error in Logout ${e.toString()}');
     }
   }
 
-  void login(String email, String password, BuildContext context) async {
+  void login(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -52,16 +63,20 @@ class UserAuthProvider extends StateNotifier<bool>{
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-        state = false;
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
-        state = false;
       }
+      state = false;
     }
   }
 
-  void signUp(String email, String password, BuildContext context, String name,
-      String mobile, String address) async {
+  void signUp(
+      {required String email,
+      required String password,
+      required BuildContext context,
+      required String name,
+      required String mobile,
+      required String address}) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -86,20 +101,27 @@ class UserAuthProvider extends StateNotifier<bool>{
 
       // push user module into database
       final UserData newUser =
-      UserData(name: name, mobile: mobile, email: email, address: address);
+          UserData(name: name, mobile: mobile, email: email, address: address);
 
       addUser(newUser);
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
-      state= false;
     } catch (e) {
       print(e);
-      state = false;
     }
+  }
+
+  dynamic getUserAuth() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final currentUser = auth.currentUser;
+    if(currentUser == null){
+      print('Null User');
+      return null;
+    }
+    return currentUser;
   }
 }

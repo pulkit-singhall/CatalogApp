@@ -71,8 +71,4 @@ Future<void> updateUserAddress(UserData user) async {
   userCollection.doc(uid).update(newData);
 }
 
- dynamic getUserAuth() async {
-  FirebaseAuth auth = FirebaseAuth.instance;
-  final currentUser = auth.currentUser;
-  return currentUser;
-}
+

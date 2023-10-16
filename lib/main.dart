@@ -1,7 +1,5 @@
-import 'package:catalog_app/model/user.dart';
 import 'package:catalog_app/providers/providers.dart';
 import 'package:catalog_app/screens/auth/signup.dart';
-import 'package:catalog_app/screens/cart/cart.dart';
 import 'package:catalog_app/screens/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +18,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final userAuth = ref.watch(userAuthProvider);
+    final userInstance = ref.watch(userInstanceProvider);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -33,7 +31,7 @@ class MyApp extends ConsumerWidget {
         ),
         useMaterial3: false,
       ),
-      home: userAuth == true ? const HomeScreen() : const SignUp(),
+      home: userInstance == null ? const SignUp() : const HomeScreen(),
     );
   }
 }

@@ -21,7 +21,8 @@ class _SignUp extends ConsumerState<SignUp> {
 
   // firestore
   FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
-  CollectionReference userCollection = FirebaseFirestore.instance.collection('User_Details');
+  CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('User_Details');
 
   int isHide = 1;
 
@@ -33,7 +34,6 @@ class _SignUp extends ConsumerState<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-
     final userAuth = ref.watch(userAuthProvider.notifier);
 
     return Scaffold(
@@ -160,12 +160,12 @@ class _SignUp extends ConsumerState<SignUp> {
                     mobile.text.toString(),
                     address.text.toString())) {
                   userAuth.signUp(
-                      email.text.toString(),
-                      password.text.toString(),
-                      context,
-                      name.text.toString(),
-                      mobile.text.toString(),
-                      address.text.toString());
+                      email: email.text.toString(),
+                      password: password.text.toString(),
+                      context: context,
+                      name: name.text.toString(),
+                      mobile: mobile.text.toString(),
+                      address: address.text.toString());
                 } else {
                   SnackBar message = const SnackBar(
                     content: Text(
@@ -238,6 +238,4 @@ class _SignUp extends ConsumerState<SignUp> {
     }
     return true;
   }
-
-
 }

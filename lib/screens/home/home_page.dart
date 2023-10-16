@@ -130,7 +130,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ElevatedButton(
                     onPressed: () {
                       // sign out user
-                      userAuth.signOutUser();
+                      userAuth.signOutUser(context: context);
+
                     },
                     child: const Text(
                       'LOGOUT',

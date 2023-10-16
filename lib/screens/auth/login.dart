@@ -85,7 +85,10 @@ class _LoginState extends ConsumerState<Login> {
                 if (validateLogin(
                     email.text.toString(), password.text.toString())) {
                   userAuth.login(
-                      email.text.toString(), password.text.toString(), context);
+                    context: context,
+                    email: email.text.toString(),
+                    password: password.text.toString(),
+                  );
                 } else {
                   SnackBar message = const SnackBar(
                     content: Text(
