@@ -1,4 +1,5 @@
 import 'package:catalog_app/widgets/cart_tile.dart';
+import 'package:catalog_app/widgets/delivery_address_cart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,14 @@ class Cart extends StatefulWidget {
 
 class _CartPageBodyState extends State<Cart> {
   List<Map<String, dynamic>> cartItems = [];
+  String name = '';
+  String address = '';
 
   @override
   void initState() {
     super.initState();
     getCartItems();
+    getUserAddress();
   }
 
   @override
@@ -31,19 +35,27 @@ class _CartPageBodyState extends State<Cart> {
         elevation: 3.0,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 6.0),
-        child: ListView.builder(
-            itemCount: cartItems.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int index) {
-              final cartItem = cartItems[index];
-              return CartTile(
-                price: cartItem['price'],
-                imageUrl: cartItem['imageUrl'],
-                title: cartItem['title'],
-                brand: cartItem['brand'],
-              );
-            }),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 6.0),
+        child: Column(
+          children: [
+            // address
+            DeliveryAddressCart(name: name, address: address),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: cartItems.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    final cartItem = cartItems[index];
+                    return CartTile(
+                      price: cartItem['price'],
+                      imageUrl: cartItem['imageUrl'],
+                      title: cartItem['title'],
+                      brand: cartItem['brand'],
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -76,4 +88,28 @@ class _CartPageBodyState extends State<Cart> {
       print('error in retrieving from cart $e');
     }
   }
+
+  Future<void> getUserAddress() async {
+    try{
+      FirebaseAuth auth = FirebaseAuth.instance;
+      final currentUser = auth.currentUser;
+      final String? uid = currentUser?.uid;
+      // firestore
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      final userCollection = firestore.collection('User_Details');
+
+      userCollection.doc(uid).get().then((value) {
+        final data = value.data();
+        address = data?['address'];
+        name = data?['name'];
+        setState(() {
+
+        });
+      });
+    }
+    catch(e){
+      print(e.toString());
+    }
+  }
+
 }

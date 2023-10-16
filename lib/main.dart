@@ -1,20 +1,27 @@
+import 'package:catalog_app/model/user.dart';
+import 'package:catalog_app/providers/providers.dart';
 import 'package:catalog_app/screens/auth/signup.dart';
 import 'package:catalog_app/screens/cart/cart.dart';
+import 'package:catalog_app/screens/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final userAuth = ref.watch(userAuthProvider);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Shopping App",
@@ -26,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: false,
       ),
-      home: const SignUp(),
+      home: userAuth == true ? const HomeScreen() : const SignUp(),
     );
   }
 }

@@ -43,7 +43,6 @@ class _CartTileState extends State<CartTile> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
       child: Container(
-        height: 230,
         width: Checkbox.width,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -102,7 +101,7 @@ class _CartTileState extends State<CartTile> {
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Lato'),
-                            maxLines: 1,
+                            maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(

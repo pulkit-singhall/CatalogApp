@@ -1,23 +1,28 @@
+import 'package:catalog_app/providers/providers.dart';
 import 'package:catalog_app/screens/cart/cart.dart';
 import 'package:catalog_app/screens/profile/profile.dart';
 import 'package:catalog_app/widgets/drawer_text.dart';
 import 'package:catalog_app/widgets/home_page_body.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   // creating widget list for navigation
   List<Widget> pages = const [HomePageBody()];
   int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
+
+    final userAuth = ref.watch(userAuthProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -39,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const DrawerHeader(
                   child: Center(
@@ -119,6 +124,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   onTap: () {},
                 ),
+                const SizedBox(
+                  height: 120,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      // sign out user
+                      userAuth.signOutUser();
+                    },
+                    child: const Text(
+                      'LOGOUT',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    )),
               ],
             ),
           ),

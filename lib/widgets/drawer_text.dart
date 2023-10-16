@@ -9,6 +9,7 @@ class DrawerText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Image(
           image: AssetImage(image),
