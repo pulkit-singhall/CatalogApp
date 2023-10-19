@@ -20,7 +20,7 @@ class _CartPageBodyState extends State<Cart> {
   void initState() {
     super.initState();
     getCartItems();
-    getUserAddress();
+    getUserDeliveryDetails();
   }
 
   @override
@@ -47,6 +47,7 @@ class _CartPageBodyState extends State<Cart> {
                   itemBuilder: (BuildContext context, int index) {
                     final cartItem = cartItems[index];
                     return CartTile(
+                      id: cartItem['id'],
                       price: cartItem['price'],
                       imageUrl: cartItem['imageUrl'],
                       title: cartItem['title'],
@@ -89,7 +90,7 @@ class _CartPageBodyState extends State<Cart> {
     }
   }
 
-  Future<void> getUserAddress() async {
+  Future<void> getUserDeliveryDetails() async {
     try{
       FirebaseAuth auth = FirebaseAuth.instance;
       final currentUser = auth.currentUser;
@@ -98,7 +99,7 @@ class _CartPageBodyState extends State<Cart> {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       final userCollection = firestore.collection('User_Details');
 
-      userCollection.doc(uid).get().then((value) {
+      await userCollection.doc(uid).get().then((value) {
         final data = value.data();
         address = data?['address'];
         name = data?['name'];

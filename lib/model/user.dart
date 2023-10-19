@@ -50,7 +50,7 @@ Future<Map<String, dynamic>> retrieveUserData() async {
   final userCollection = firestore.collection('User_Details');
 
   final docRef = userCollection.doc(uid);
-  final profileData = docRef.get().then((DocumentSnapshot doc) {
+  final profileData = await docRef.get().then((DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return data;
   });
@@ -68,7 +68,7 @@ Future<void> updateUserAddress(UserData user) async {
 
   final newData = userDataToJSON(user);
 
-  userCollection.doc(uid).update(newData);
+  await userCollection.doc(uid).update(newData);
 }
 
 

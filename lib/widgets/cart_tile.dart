@@ -1,3 +1,6 @@
+import 'package:catalog_app/model/cartModel.dart';
+import 'package:catalog_app/widgets/remove_cart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CartTile extends StatefulWidget {
@@ -5,13 +8,15 @@ class CartTile extends StatefulWidget {
   final String imageUrl;
   final int price;
   final String brand;
+  final String id;
 
   const CartTile(
       {super.key,
       required this.price,
       required this.imageUrl,
       required this.title,
-      required this.brand});
+      required this.brand,
+      required this.id});
 
   @override
   State<CartTile> createState() => _CartTileState();
@@ -24,15 +29,20 @@ class _CartTileState extends State<CartTile> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Delete Item'),
-            content: const Text('Are you sure you want to delete this item?'),
+            title: const Text('Remove Item'),
+            content: const Text('Are you sure you want to remove this item?'),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   child: const Text('NO')),
-              TextButton(onPressed: () {}, child: const Text('YES')),
+              TextButton(
+                  onPressed: () {
+                    deleteFromCart(widget.id);
+                    Navigator.pop(context);
+                  },
+                  child: const Text('YES')),
             ],
           );
         });
@@ -137,22 +147,13 @@ class _CartTileState extends State<CartTile> {
               const SizedBox(
                 height: 25,
               ),
-              const Row(
+              Row(
                 children: [
-                  Icon(
-                    Icons.remove_shopping_cart_sharp,
-                    size: 25,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'REMOVE',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    child: const RemoveCart(),
+                    onTap: () {
+                      deleteDialog();
+                    },
                   ),
                 ],
               ),

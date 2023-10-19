@@ -28,7 +28,7 @@ class UserAuthProvider extends StateNotifier<bool> {
       await auth.signOut();
       print('Logout Success');
       state = false;
-      Navigator.push(context, MaterialPageRoute(builder: (context){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
         return const SignUp();
       }));
     } catch (e) {

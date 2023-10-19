@@ -38,7 +38,7 @@ Future<void> addToCart(CartData cartItem) async {
     final currentUser = auth.currentUser;
     final String? uid = currentUser?.uid;
 
-    cartCollection
+    await cartCollection
         .doc(uid)
         .collection('Cart_Items')
         .doc(cartItem.id)
@@ -48,7 +48,7 @@ Future<void> addToCart(CartData cartItem) async {
   }
 }
 
-Future<void> deleteFromCart(CartData cartItem) async {
+Future<void> deleteFromCart(String id) async {
   try {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference cartCollection = firestore.collection('Cart_Details');
@@ -57,7 +57,7 @@ Future<void> deleteFromCart(CartData cartItem) async {
     final currentUser = auth.currentUser;
     final String? uid = currentUser?.uid;
 
-    cartCollection.doc(uid).collection('Cart_Items').doc(cartItem.id).delete();
+    await cartCollection.doc(uid).collection('Cart_Items').doc(id).delete();
   } catch (e) {
     print('error in deleting from cart $e');
   }
