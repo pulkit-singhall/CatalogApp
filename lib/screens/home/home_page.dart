@@ -1,3 +1,4 @@
+import 'package:catalog_app/google_maps.dart';
 import 'package:catalog_app/providers/providers.dart';
 import 'package:catalog_app/screens/cart/cart.dart';
 import 'package:catalog_app/screens/profile/profile.dart';
@@ -122,7 +123,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     heading: 'CONTACT',
                     image: 'assets/images/contact.png',
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    // remove later this is map page
+                    Navigator.push(context, MaterialPageRoute(builder: (context){return const MapsPage();}));
+                  },
                 ),
                 const SizedBox(
                   height: 120,

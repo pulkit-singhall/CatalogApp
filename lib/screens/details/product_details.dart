@@ -1,7 +1,6 @@
 import 'package:catalog_app/model/cartModel.dart';
 import 'package:catalog_app/widgets/images_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   // parameters
@@ -14,6 +13,7 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   late Map<String, dynamic> actualProduct;
+  int isClicked = 0;
 
   @override
   void initState() {
@@ -134,45 +134,63 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 25,
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          // add to cart function
-                          CartData res = productToCartData(actualProduct);
-                          addToCart(res);
-
-                          const message = SnackBar(
-                            content: Text(
-                              'Added To Cart',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            elevation: 3.0,
-                            backgroundColor: Colors.brown,
-                            duration: Duration(milliseconds: 1500),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(message);
-                        },
-                        style: ButtonStyle(
-                            elevation: const MaterialStatePropertyAll(3),
-                            fixedSize: MaterialStateProperty.all<Size>(
-                                const Size(150, 45)),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(21),
-                            ))),
-                        child: const Text(
-                          'Add To Cart',
-                          style: TextStyle(
-                              color: Colors.brown,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontFamily: 'Lato'),
-                        )),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if(isClicked == 0){
+                            isClicked = 1;
+                            // add to cart mechanism
+                            CartData cartItem = productToCartData(actualProduct);
+                            addToCart(cartItem);
+                          }
+                          else{
+                            isClicked = 0;
+                          }
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 800),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        height: 55,
+                        width: isClicked == 1 ? 170 : 65,
+                        decoration: BoxDecoration(
+                          color: isClicked == 1 ? Colors.green : Colors.blue,
+                          borderRadius: isClicked == 1
+                              ? BorderRadius.circular(30)
+                              : BorderRadius.circular(10),
+                        ),
+                        child: isClicked == 1
+                            ? const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    'Added to Cart',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              )
+                            : Center(
+                                child: Image.asset(
+                                  'assets/images/cart.png',
+                                  color: Colors.white,
+                                  height: 27,
+                                  width: 27,
+                                ),
+                              ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 35,
                     )
